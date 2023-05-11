@@ -13,7 +13,4 @@ class ProductsController extends Controller
      */
     protected $model = Product::class;
 
-    public function store(Request $request) {
-
-    }
 }
