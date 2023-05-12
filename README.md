@@ -60,12 +60,55 @@ https://github.com/infinite-system/shopify/tree/main/specs/specs.yaml
 ## About
 The API was created using Orion Laravel extension.
 
+
+I've enjoyed working on this task, the main hurdle for me was not the building of application logic but going through the intense documentation of Shopify, that's why I could not get to the hooks implementation, but I've implemented adding a product and an image, as well as editing the product and an image, and it syncs with the Shopify store.
+The only parameter that does not sync with the store is the quantity because that requires Inventory API from shopify, in my example I implemented Product, Product Variant and Image APIs:
+
+
 Notable files to make it work are:
-ProductsAPI Controller:
+
+### ProductsAPI Controller:
 https://github.com/infinite-system/shopify/blob/main/app/Http/Controllers/Api/ProductApiController.php
 
-ProductsAPI Policy for Add/Edit Product Auth:
+### ProductsAPI Policy for Add/Edit Product Auth:
 https://github.com/infinite-system/shopify/blob/main/app/Policies/ProductPolicy.php
 
-Shopify:
+### The validations are implemented in
+https://github.com/infinite-system/shopify/blob/main/app/Http/Requests/ProductRequest.php
+
+### Shopify Service Provider and config are here: 
+
+https://github.com/infinite-system/shopify/blob/main/app/Providers/ShopifyServiceProvider.php
+
+https://github.com/infinite-system/shopify/blob/main/config/shopify.php
+
 https://github.com/infinite-system/shopify/blob/main/app/Http/Api/Shopify.php
+
+### The product blades are here:
+
+https://github.com/infinite-system/shopify/tree/main/resources/views/products
+
+### Other notes
+
+#### APIs
+I've worked and built full scale APIs of my own before for several companies, one of them is Flexible Payments API that runs at https://officestock.com which integrates Stripe and Square APIs into a single interface, with the ability to expand to more APIs.
+
+I've also worked extensively with authentication and have actually built my own token authentication systems from scratch before Laravel in the project called Infinite System.
+
+#### Authentication
+
+I've also now implemented not just one but several ways of Laravel Authentication, I have an SPA where I've implemented XSRF token authentication.
+
+In this app I implemented token based authentication via Sanctum, once you login you can modify a token that is submitted and see the api fail, it will only work with a correct token supplied by Sanctum.
+
+The only auth that I have not tried extensively yet, is Laravel Passport.
+
+Anyway, this is a big topic, but just wanted to let you know that I enjoyed this task and I am passionate about building these kinds of systems, APIs, AUTH and enjoy building, debugging, improving and polishing for high performance and maintainability.
+
+I am also well versed in frontend, VueJS, React, Tailwind and all that goodness.
+Would love to join the team who share the same passion.
+
+
+Regards,
+
+Evgeny Kalashnikov
