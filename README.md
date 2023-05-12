@@ -10,9 +10,11 @@ Git clone the repository:
 git clone https://github.com/infinite-system/shopify.git
 ```
 
-Install laravel valet.
+Install laravel valet:
 https://laravel.com/docs/10.x/valet
 
+Run this command in root dir to setup http://shopify.test
+local environment.
 ```
 valet link shopify
 ```
