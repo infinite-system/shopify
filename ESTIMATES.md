@@ -8,10 +8,10 @@
 | REST API under auth to add products + images                   |   1hr    |  40min   |
 
 ## Part II: Shopify Integration
-| Task                                  | Estimate | Realtime |
-|---------------------------------------|:--------:|:--------:|
-| Implement CRUD sync from Laravel side |   2hr    |          |
-| Implement CRUD sync from Shopify side |   2hr    |          |
-| Implement benchmarking                |  30min   |          |
-| Create benchmarking report            |  30min   |          |
+| Task                                               | Estimate |  Realtime  |
+|----------------------------------------------------|:--------:|:----------:|
+| Implement CRUD sync with Shopify from Laravel side |   2hr    |    3hr     |
+| Implement CRUD sync from Shopify side via hooks    |   2hr    | IN Progess |
+| Implement benchmarking                             |  30min   |   10min    |
+| Create benchmarking report                         |  30min   |   10min    |
 

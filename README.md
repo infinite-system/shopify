@@ -2,7 +2,58 @@
 
 # Shopify Intergation with Laravel
 
+# Setup the application
 
-`composer install`
+Git clone the repository:
 
-`php artisan jetstream:install livewire`
+```bash
+git clone https://github.com/infinite-system/shopify.git
+```
+
+Install laravel valet.
+https://laravel.com/docs/10.x/valet
+
+```
+valet link shopify
+```
+
+Run composer install:
+```bash
+composer install
+```
+
+Install laravel jetstream in livewire mode:
+```bash
+php artisan jetstream:install livewire
+```
+
+Run the migrations:
+```bash
+php artisan migrate
+```
+
+Install mysql with 'shopify' database and modify env file to match credentials:
+```
+Modify .env file to have proper mysql password
+```
+
+Live example of the application can be found @:
+http://34.71.79.49/shopify
+
+Register an account there and login.
+There you will be able to add and edit products, that will sync with Shopify store.
+
+The store is located at https://realized-one.myshopify.com/
+
+The password to the test store is `1234`
+
+
+Products open API can be found at:
+http://34.71.79.49/shopify/api/products via POSTMAN or any other API checker, if viewed through browser it will redirect to login page.
+
+Benchmarking can be found at:
+http://34.71.79.49/shopify/clockwork/app#
+
+
+
+
