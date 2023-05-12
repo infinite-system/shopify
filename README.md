@@ -57,4 +57,15 @@ http://34.71.79.49/shopify/clockwork/app#
 OpenAPI Specs can be found here:
 https://github.com/infinite-system/shopify/tree/main/specs/specs.yaml
 
+## About
+The API was created using Orion Laravel extension.
 
+Notable files to make it work are:
+ProductsAPI Controller:
+https://github.com/infinite-system/shopify/blob/main/app/Http/Controllers/Api/ProductApiController.php
+
+ProductsAPI Policy for Add/Edit Product Auth:
+https://github.com/infinite-system/shopify/blob/main/app/Policies/ProductPolicy.php
+
+Shopify:
+https://github.com/infinite-system/shopify/blob/main/app/Http/Api/Shopify.php
