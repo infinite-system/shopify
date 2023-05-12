@@ -1,11 +1,11 @@
 ## Part I: Laravel Integration
 | Task                                                           | Estimate | Realtime |
 |----------------------------------------------------------------|:--------:|:--------:|
-| Setup repository                                               |  15min   |          |
-| Setup/configure laravel (db, composer, valet, extensions, etc) |  30min   |          |
-| Implement user auth + password reset                           |  30min   |          |
-| REST API for products + pagination                             |   1hr    |          |
-| REST API under auth to add products + images                   |   1hr    |          |
+| Setup repository                                               |  15min   |   1min   |
+| Setup/configure laravel (db, composer, valet, extensions, etc) |  30min   |  10min   |
+| Implement user auth + password reset                           |  30min   |  10min   |
+| REST API for products + pagination                             |   1hr    |  30min   |
+| REST API under auth to add products + images                   |   1hr    |  40min   |
 
 ## Part II: Shopify Integration
 | Task                                  | Estimate | Realtime |

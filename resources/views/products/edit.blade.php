@@ -50,9 +50,8 @@
                   </div>
 
                 </div>
-                <br />
-                <h6>API Response:</h6>
-                <pre style="border-radius:5px; background:#eee;padding:10px;font-size:12px;" id="response">Add new product to see response.</pre>
+
+                <pre id="response"></pre>
               </div>
 
 
@@ -88,7 +87,7 @@
 
               $.ajax({
                 type: "POST",
-                url: "{{route('api.products.store')}}",
+                url: "{{route('api.products.update')}}",
                 data: formData,
                 // dataType: "json",
                 processData: false,
@@ -104,9 +103,9 @@
                 $('#response').html(JSON.stringify(xhr.responseJSON, null, 2))
               })
                 .done(function (data) {
-                  console.log(data);
-                  $('#response').html(data)
-                });
+                console.log(data);
+                $('#response').html(data)
+              });
             });
           });
         </script>

@@ -7,8 +7,12 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-         <a href="{{route('products.add')}}">Add Product</a>
+      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="padding:10px;">
+         <a style="padding:10px;display:inline-block;border:1px solid grey;border-radius:3px;background:#eee;"
+            href="{{route('products.add')}}">Add Product</a>
+
+        <a style="padding:10px;display:inline-block;border:1px solid grey;border-radius:3px;background:#eee;"
+           href="{{route('products.public.add')}}">Add Product Public (logout before trying)</a>
       </div>
     </div>
   </div>

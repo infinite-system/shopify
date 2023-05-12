@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\PersonalAccessToken;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        $plainToken = $user->createToken('registered')->plainTextToken;
+
+        PersonalAccessToken::whereId($user->tokens[0]->id)->update([
+            'plain_token' => $plainToken
         ]);
 
         event(new Registered($user));
