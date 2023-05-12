@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Products') }}
+      {{ __('Products') }} » Edit
     </h2>
   </x-slot>
 
@@ -12,10 +12,10 @@
         <div class="md:grid md:grid-cols-3 md:gap-6">
           <div class="md:col-span-1 flex justify-between">
             <div class="px-4 sm:px-0">
-              <h3 class="text-lg font-medium text-gray-900">Add Product</h3>
+              <h3 class="text-lg font-medium text-gray-900">Edit Product #{{$product->id}}</h3>
 
               <p class="mt-1 text-sm text-gray-600">
-                Add product to the database and Shopify platform.
+                Edit product and sync with Shopify platform.
               </p>
             </div>
 
@@ -30,35 +30,53 @@
                 <div class="grid grid-cols-6 gap-6">
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="name">Name</label>
-                    <input id="name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" placeholder="name" name="name" type="text" />
+                    <input id="name"
+                           class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                           placeholder="name" name="name" value="{{$product->name}}" type="text" />
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="description">Description</label>
-                    <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="description" name="description"></textarea>
+                    <textarea
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                        id="description" name="description">{{$product->description}}</textarea>
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="price">Price</label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="price" name="price" type="text" />
+                    <input
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                        id="price" value="{{$product->price}}" name="price" type="text" />
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="quantity">Quantity</label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="quantity" name="quantity" type="text" />
+                    <input
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                        id="quantity" name="quantity" type="text" value="{{$product->quantity}}" />
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="image">Image</label>
+                    <img src="/{{$product->image}}" style="max-height:150px;" />
                     <input id="image" name="image" type="file" />
                   </div>
 
-                </div>
+                  <div class="col-span-6 sm:col-span-4">
+                    <label class="block font-medium text-sm text-gray-700" for="image">Token</label>
+                    <input
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                        id="token" name="token" type="text" value="{{ Auth::user()->tokens[0]->plain_token ?? '' }}" />
+                  </div>
 
+                </div>
+                <br />
                 <pre id="response"></pre>
               </div>
 
 
-              <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+              <div
+                  class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
 
-                <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                  Add
+                <button type="submit"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                  Update
                 </button>
               </div>
             </form>
@@ -67,9 +85,9 @@
 
 
         <script>
-          $(document).ready(function () {
+          $(document).ready(function() {
 
-            $("#form").submit(function (event) {
+            $("#form").submit(function(event) {
 
               event.preventDefault();
 
@@ -79,6 +97,7 @@
               let imageFile = $('input[type="file"][name="image"]')[0].files[0]
               imageFile = imageFile ? imageFile : ''
 
+              formData.append("_method", 'PUT');
               formData.append("name", $('input[name="name"]').val());
               formData.append("description", $('textarea[name="description"]').val());
               formData.append("price", $('input[name="price"]').val());
@@ -87,29 +106,26 @@
 
               $.ajax({
                 type: "POST",
-                url: "{{route('api.products.update')}}",
+                url: "{{route('api.products.update', $product->id)}}",
                 data: formData,
-                // dataType: "json",
                 processData: false,
                 contentType: false,
-                // encode: true,
                 headers: {
                   "accept": "application/json",
-                  "Authorization": "Bearer {{ Auth::user()->tokens[0]->plain_token ?? ''}}"
+                  "Authorization": "Bearer " + $('input[name="token"]').val()
                 }
-              }).fail(function(xhr, data){
+              }).fail(function(xhr, data) {
 
                 console.log(xhr.responseText)
                 $('#response').html(JSON.stringify(xhr.responseJSON, null, 2))
               })
-                .done(function (data) {
-                console.log(data);
-                $('#response').html(data)
-              });
+                .done(function(data) {
+                  console.log(data);
+                  $('#response').html(JSON.stringify(data, null,2))
+                });
             });
           });
         </script>
-
 
 
       </div>

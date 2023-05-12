@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Products') }}
+      {{ __('Products') }} » Add
     </h2>
   </x-slot>
 
@@ -49,10 +49,14 @@
                     <input id="image" name="image" type="file" />
                   </div>
 
+                  <div class="col-span-6 sm:col-span-4">
+                    <label class="block font-medium text-sm text-gray-700" for="image">Token</label>
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="token" name="token" type="text" value="{{ Auth::user()->tokens[0]->plain_token ?? '' }}" />
+                  </div>
+
                 </div>
                 <br />
-                <h6>API Response:</h6>
-                <pre style="border-radius:5px; background:#eee;padding:10px;font-size:12px;" id="response">Add new product to see response.</pre>
+                <pre id="response"></pre>
               </div>
 
 
@@ -90,13 +94,11 @@
                 type: "POST",
                 url: "{{route('api.products.store')}}",
                 data: formData,
-                // dataType: "json",
                 processData: false,
                 contentType: false,
-                // encode: true,
                 headers: {
                   "accept": "application/json",
-                  "Authorization": "Bearer {{ Auth::user()->tokens[0]->plain_token ?? ''}}"
+                  "Authorization": "Bearer "+$('input[name="token"]').val()
                 }
               }).fail(function(xhr, data){
 
@@ -105,7 +107,7 @@
               })
                 .done(function (data) {
                   console.log(data);
-                  $('#response').html(data)
+                  $('#response').html(JSON.stringify(data, null,2))
                 });
             });
           });

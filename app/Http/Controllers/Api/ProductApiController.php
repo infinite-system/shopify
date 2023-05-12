@@ -6,7 +6,7 @@ use App\Models\Product;
 use Orion\Http\Controllers\Controller;
 use Orion\Http\Requests\Request;
 
-class ProductsController extends Controller
+class ProductApiController extends Controller
 {
     /**
      * Fully-qualified model class name
@@ -22,11 +22,12 @@ class ProductsController extends Controller
     private function uploadImage(Request $request): string {
 
         $imageName = time().'.'.$request->image->extension();
-        $imageFolder = public_path('images');
-        $imageLocation = $imageFolder. '/' .$imageName;
-        $request->image->move($imageFolder, $imageName);
+        $folder = 'images';
+        $absoluteImageFolder = public_path($folder);
 
-        return $imageLocation;
+        $request->image->move($absoluteImageFolder, $imageName);
+
+        return $folder. '/' .$imageName;
     }
 
     /**
@@ -36,15 +37,20 @@ class ProductsController extends Controller
      * @param $method
      * @return array
      */
-    public function store(Request $request, $method = 'create'): array {
+    public function store(Request $request): array {
 
-        $create = Product::$method([
+        $createDto = [
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'image' => $this->uploadImage($request)
-        ]);
+        ];
+
+        if ($request->image) {
+            $createDto['image'] = $this->uploadImage($request);
+        }
+
+        $create = Product::create($createDto);
 
         return [
           'success' => !!$create,
@@ -59,19 +65,26 @@ class ProductsController extends Controller
      * @param $product
      * @return array
      */
-    public function update(Request $request, $product): array {
+    public function update(Request $request, $key): array {
 
-        $update = $product->update([
+        $product = Product::whereId($key)->firstOrFail();
+
+        $updateDto = [
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'image' => $this->uploadImage($request)
-        ]);
+        ];
+
+        if ($request->image) {
+            $updateDto['image'] = $this->uploadImage($request);
+        }
+
+        $update = $product->updateOrFail($updateDto);
 
         return [
             'success' => !!$update,
-            'data' => $update
+            'data' => $product
         ];
     }
 }

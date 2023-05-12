@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Auth\RegisteredUserController;
-
+use \App\Models\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,29 +15,36 @@ use \App\Http\Controllers\Auth\RegisteredUserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->to('products');
 });
-
-Route::get('/products/public/add', function () {
-    return view('products.public.add');
-})->name('products.public.add');
 
 // Extend default register controller to get plain token text
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware(['guest:'.config('fortify.guard')]);
-
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+
     Route::get('/dashboard', function () { return view('dashboard'); })
         ->name('dashboard');
 
-    Route::get('/products', function () { return view('products'); })
+    Route::get('/products', function () {
+        $products = Product::query()->orderBy('updated_at', 'desc')->paginate(
+            $perPage = 15, $columns = ['*'], $pageName = 'p'
+        );
+        return view('products', ['products' => $products]);
+    })
         ->name('products');
+
     Route::get('/products/add', function () { return view('products.add'); })
         ->name('products.add');
+
+    Route::get('/products/edit/{id}', function ($id) {
+        $product = Product::whereId($id)->first();
+        return view('products.edit', ['product' => $product]);
+    })->name('products.edit');
 
 });
