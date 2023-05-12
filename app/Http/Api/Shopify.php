@@ -23,7 +23,7 @@ class Shopify
      * @throws ClientExceptionInterface
      * @throws MissingArgumentException
      */
-    public static function get(): \Shopify\Clients\HttpResponse {
+    public static function get($location): \Shopify\Clients\HttpResponse {
         return self::rest()->get('/admin/api/' . config('shopify.api.version') . '/'.$location);
     }
 

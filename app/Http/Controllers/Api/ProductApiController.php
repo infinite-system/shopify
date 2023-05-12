@@ -88,7 +88,14 @@ class ProductApiController extends Controller
                         "option1" => "Default",
                         "price" => $request->price
                     ]
-                ])->getDecodedBody();;
+                ])->getDecodedBody();
+
+            $createDto['details'] = [
+                'shopify' => [
+                    'product_id' => $shopifyProduct['product']['id'],
+                    'variant_id' => $variants['variants'][0]['id']
+                ]
+            ];
 
             $create = Product::create($createDto);
 
@@ -98,6 +105,7 @@ class ProductApiController extends Controller
                 'message' => $e->getMessage()
             ];
         }
+
         return [
             'success' => !!$create,
             'data' => $create
@@ -113,21 +121,53 @@ class ProductApiController extends Controller
      */
     public function update(Request $request, $key): array {
 
-        $product = Product::whereId($key)->firstOrFail();
+        try {
 
-        $updateDto = [
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-        ];
+            $product = Product::whereId($key)->firstOrFail();
 
-        if ($request->image) {
-            $updateDto['image'] = $this->uploadImage($request);
+            $updateDto = [
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+            ];
+
+            $images = [];
+            if ($request->image) {
+                $imageUpload = $this->uploadImage($request);
+                $updateDto['image'] = $imageUpload['relative'];
+                $images = [
+                    'images' => [
+                        ["attachment" => base64_encode(file_get_contents($imageUpload['absolute']))]
+                    ]
+                ];
+            }
+
+            $updateShopifyProduct = Shopify::put("products/{$product->details['shopify']['product_id']}.json",
+                [
+                    "product" => [
+                        "id" => $product->details['shopify']['product_id'],
+                        "title" => $request->name,
+                        "body_html" => $request->description,
+                        "variants" => [
+                            [
+                                "id" => $product->details['shopify']['variant_id'],
+                                "price" => $request->price
+                            ]
+                        ],
+                        ...$images
+                    ]
+                ])->getDecodedBody();
+
+
+            $update = $product->updateOrFail($updateDto);
+
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
-
-        $update = $product->updateOrFail($updateDto);
-
         return [
             'success' => !!$update,
             'data' => $product

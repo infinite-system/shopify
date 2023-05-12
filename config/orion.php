@@ -11,16 +11,16 @@ return [
     'specs' => [
         'info' => [
             'title' => env('APP_NAME'),
-            'description' => null,
+            'description' => 'Shopify API - Laravel implementation',
             'terms_of_service' => null,
             'contact' => [
-                'name' => null,
-                'url' => null,
-                'email' => null,
+                'name' => 'Evgeny Kalashnkov',
+                'url' => 'https://shopify.test',
+                'email' => 'ekalashnikov@gmail.com',
             ],
             'license' => [
-                'name' => null,
-                'url' => null,
+                'name' => 'MIT',
+                'url' => 'https://github.com/infinite-system/shopify',
             ],
             'version' => '1.0.0',
         ],
