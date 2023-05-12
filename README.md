@@ -56,7 +56,7 @@ http://34.71.79.49/shopify/api/products via GET request or simply going to the l
 Products authorized add API can be found at:
 http://34.71.79.49/shopify/api/products via POST request
 via POSTMAN or any other API checker, if viewed through browser it will redirect to login page.
-It can also be access by loginning into the application and submitting the requests there.
+It can also be access by login in into the application and submitting the requests there.
 
 
 Benchmarking can be found at:
