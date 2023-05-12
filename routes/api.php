@@ -21,7 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+Route::group(['as' => 'api.'], function() {
+    Orion::resource('products', ProductApiController::class)->only('index');
+});
 
 Route::group(['as' => 'api.', 'middleware' => ['auth:sanctum']], function() {
-    Orion::resource('products', ProductApiController::class);
+    Orion::resource('products', ProductApiController::class)->except(['index']);
 });
