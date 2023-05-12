@@ -38,7 +38,6 @@ Route::middleware([
         $products = Product::query()->orderBy('updated_at', 'desc')->paginate(
             $perPage = 15, $columns = ['*'], $pageName = 'p'
         );
-//dd(Shopify::rest()->get('products')->getDecodedBody());
         return view('products', ['products' => $products]);
     })
         ->name('products');
