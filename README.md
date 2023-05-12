@@ -50,8 +50,14 @@ The store is located at https://realized-one.myshopify.com/
 The password to the test store is `1234`
 
 
-Products open API can be found at:
-http://34.71.79.49/shopify/api/products via POSTMAN or any other API checker, if viewed through browser it will redirect to login page.
+Products public unathorized API can be found at:
+http://34.71.79.49/shopify/api/products via GET request or simply going to the link.
+
+Products authorized add API can be found at:
+http://34.71.79.49/shopify/api/products via POST request
+via POSTMAN or any other API checker, if viewed through browser it will redirect to login page.
+It can also be access by loginning into the application and submitting the requests there.
+
 
 Benchmarking can be found at:
 http://34.71.79.49/shopify/clockwork/app#
