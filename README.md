@@ -55,6 +55,6 @@ Benchmarking can be found at:
 http://34.71.79.49/shopify/clockwork/app#
 
 OpenAPI Specs can be found here:
-https://github.com/infinite-system/shopify/tree/main/storage/app/public/specs.yaml
+https://github.com/infinite-system/shopify/tree/main/specs/specs.yaml
 
 
