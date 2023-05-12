@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Auth\RegisteredUserController;
 use \App\Models\Product;
+
+
+use \App\Http\Api\Shopify;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +23,7 @@ Route::get('/', function () {
 
 // Extend default register controller to get plain token text
 Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware(['guest:'.config('fortify.guard')]);
+    ->middleware(['guest:' . config('fortify.guard')]);
 
 Route::middleware([
     'auth:sanctum',
@@ -35,6 +38,7 @@ Route::middleware([
         $products = Product::query()->orderBy('updated_at', 'desc')->paginate(
             $perPage = 15, $columns = ['*'], $pageName = 'p'
         );
+//dd(Shopify::rest()->get('products')->getDecodedBody());
         return view('products', ['products' => $products]);
     })
         ->name('products');

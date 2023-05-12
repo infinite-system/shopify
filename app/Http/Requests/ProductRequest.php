@@ -4,8 +4,13 @@ namespace App\Http\Requests;
 
 use Orion\Http\Requests\Request;
 
+
 class ProductRequest extends Request
 {
+    public function authorize() {
+        return true;
+    }
+
     public function commonRules() : array
     {
         return [

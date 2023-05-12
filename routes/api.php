@@ -22,6 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::group(['as' => 'api.'], function() {
+Route::group(['as' => 'api.', 'middleware' => ['auth:sanctum']], function() {
     Orion::resource('products', ProductApiController::class);
 });

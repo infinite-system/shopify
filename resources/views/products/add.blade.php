@@ -30,19 +30,22 @@
                 <div class="grid grid-cols-6 gap-6">
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="name">Name</label>
-                    <input id="name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" placeholder="name" name="name" type="text" />
+                    <input id="name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" placeholder="Product name" name="name" type="text" />
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="description">Description</label>
-                    <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="description" name="description"></textarea>
+                    <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="description" placeholder="Product description"
+                      name="description"></textarea>
                   </div>
-                  <div class="col-span-6 sm:col-span-4">
+                  <div class="flex col-span-6 sm:col-span-4">
+                  <div class="col-span-2">
                     <label class="block font-medium text-sm text-gray-700" for="price">Price</label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="price" name="price" type="text" />
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block" value="9.99" id="price" name="price"  type="number" min="0.00" max="10000.00" step="0.01" />
                   </div>
-                  <div class="col-span-6 sm:col-span-4">
+                  <div class="col-span-2" style="margin-left:10px;">
                     <label class="block font-medium text-sm text-gray-700" for="quantity">Quantity</label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="quantity" name="quantity" type="text" />
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block " id="quantity" name="quantity" type="number" value="1" min="1" max="9999" />
+                  </div>
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="image">Image</label>
@@ -50,7 +53,10 @@
                   </div>
 
                   <div class="col-span-6 sm:col-span-4">
-                    <label class="block font-medium text-sm text-gray-700" for="image">Token</label>
+                    <label class="block font-medium text-sm text-gray-700" for="token">
+                      API Token
+                      <span style="color:#888">Changing the token will make request unauthorized.</span>
+                    </label>
                     <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="token" name="token" type="text" value="{{ Auth::user()->tokens[0]->plain_token ?? '' }}" />
                   </div>
 

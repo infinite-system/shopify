@@ -17,10 +17,11 @@
               <p class="mt-1 text-sm text-gray-600">
                 Edit product and sync with Shopify platform.
               </p>
-            </div>
-
-            <div class="px-4 sm:px-0">
-
+              <br />
+              <p class="mt-1 text-sm text-gray-600">
+                Current Image:
+              </p>
+              <img src="{{config('app.url')}}/{{$product->image}}" style="border-radius:5px;max-height:100%;" />
             </div>
           </div>
 
@@ -53,8 +54,8 @@
                         id="quantity" name="quantity" type="text" value="{{$product->quantity}}" />
                   </div>
                   <div class="col-span-6 sm:col-span-4">
-                    <label class="block font-medium text-sm text-gray-700" for="image">Image</label>
-                    <img src="/{{$product->image}}" style="max-height:150px;" />
+                    <label class="block font-medium text-sm text-gray-700" for="image">Upload New Image</label>
+
                     <input id="image" name="image" type="file" />
                   </div>
 
