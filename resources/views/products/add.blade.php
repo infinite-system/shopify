@@ -30,22 +30,30 @@
                 <div class="grid grid-cols-6 gap-6">
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="name">Name</label>
-                    <input id="name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" placeholder="Product name" name="name" type="text" />
+                    <input id="name"
+                           class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                           placeholder="Product name" name="name" type="text" />
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="description">Description</label>
-                    <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="description" placeholder="Product description"
-                      name="description"></textarea>
+                    <textarea
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                        id="description" placeholder="Product description"
+                        name="description"></textarea>
                   </div>
                   <div class="flex col-span-6 sm:col-span-4">
-                  <div class="col-span-2">
-                    <label class="block font-medium text-sm text-gray-700" for="price">Price</label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block" value="9.99" id="price" name="price"  type="number" min="0.00" max="10000.00" step="0.01" />
-                  </div>
-                  <div class="col-span-2" style="margin-left:10px;">
-                    <label class="block font-medium text-sm text-gray-700" for="quantity">Quantity</label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block " id="quantity" name="quantity" type="number" value="1" min="1" max="9999" />
-                  </div>
+                    <div class="col-span-2">
+                      <label class="block font-medium text-sm text-gray-700" for="price">Price</label>
+                      <input
+                          class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block"
+                          value="9.99" id="price" name="price" type="number" min="0.00" max="10000.00" step="0.01" />
+                    </div>
+                    <div class="col-span-2" style="margin-left:10px;">
+                      <label class="block font-medium text-sm text-gray-700" for="quantity">Quantity</label>
+                      <input
+                          class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block "
+                          id="quantity" name="quantity" type="number" value="1" min="1" max="9999" />
+                    </div>
                   </div>
                   <div class="col-span-6 sm:col-span-4">
                     <label class="block font-medium text-sm text-gray-700" for="image">Image</label>
@@ -57,7 +65,9 @@
                       API Token
                       <span style="color:#888">Changing the token will make request unauthorized.</span>
                     </label>
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="token" name="token" type="text" value="{{ Auth::user()->tokens[0]->plain_token ?? '' }}" />
+                    <input
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                        id="token" name="token" type="text" value="{{ Auth::user()->tokens[0]->plain_token ?? '' }}" />
                   </div>
 
                 </div>
@@ -66,9 +76,11 @@
               </div>
 
 
-              <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+              <div
+                  class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
 
-                <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <button type="submit"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                   Add
                 </button>
               </div>
@@ -78,9 +90,9 @@
 
 
         <script>
-          $(document).ready(function () {
+          $(document).ready(function() {
 
-            $("#form").submit(function (event) {
+            $("#form").submit(function(event) {
 
               event.preventDefault();
 
@@ -104,21 +116,20 @@
                 contentType: false,
                 headers: {
                   "accept": "application/json",
-                  "Authorization": "Bearer "+$('input[name="token"]').val()
+                  "Authorization": "Bearer " + $('input[name="token"]').val()
                 }
-              }).fail(function(xhr, data){
+              }).fail(function(xhr, data) {
 
                 console.log(xhr.responseText)
                 $('#response').html(JSON.stringify(xhr.responseJSON, null, 2))
               })
-                .done(function (data) {
+                .done(function(data) {
                   console.log(data);
-                  $('#response').html(JSON.stringify(data, null,2))
+                  $('#response').html(JSON.stringify(data, null, 2))
                 });
             });
           });
         </script>
-
 
 
       </div>

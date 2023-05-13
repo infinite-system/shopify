@@ -70,30 +70,25 @@ class ProductApiController extends Controller
                 'product' => [
                     'title' => $request->name,
                     'body_html' => $request->description,
-                    'vendor' => "",
-                    'product_type' => "",
                     'status' => "active",
+                    "variants" => [
+                        [
+                            "price" => $request->price,
+                            "inventory_quantity" => $request->quantity
+                        ]
+                    ],
                     ...$images
                 ]
             ];
 
             $shopifyProduct = Shopify::post('products.json', $data)->getDecodedBody();
 
-            $variants = Shopify::get("products/{$shopifyProduct['product']['id']}/variants.json")
-                ->getDecodedBody();
-
-            $setVariant = Shopify::put("variants/{$variants['variants'][0]['id']}",
-                [
-                    "variant" => [
-                        "option1" => "Default",
-                        "price" => $request->price
-                    ]
-                ])->getDecodedBody();
-
             $createDto['details'] = [
                 'shopify' => [
                     'product_id' => $shopifyProduct['product']['id'],
-                    'variant_id' => $variants['variants'][0]['id']
+                    'variant_id' => $shopifyProduct['product']['variants'][0]['id'],
+                    'image_id' => $shopifyProduct['product']['image']['id'],
+                    'image_src' => $shopifyProduct['product']['image']['src'],
                 ]
             ];
 
@@ -152,13 +147,23 @@ class ProductApiController extends Controller
                         "variants" => [
                             [
                                 "id" => $product->details['shopify']['variant_id'],
-                                "price" => $request->price
+                                "price" => $request->price,
+                                "inventory_quantity" => $request->quantity
                             ]
                         ],
                         ...$images
                     ]
                 ])->getDecodedBody();
 
+
+            $updateDto['details'] = [
+                'shopify' => [
+                    'product_id' => $updateShopifyProduct['product']['id'],
+                    'variant_id' => $updateShopifyProduct['product']['variants'][0]['id'],
+                    'image_id' => $updateShopifyProduct['product']['image']['id'],
+                    'image_src' => $updateShopifyProduct['product']['image']['src'],
+                ]
+            ];
 
             $update = $product->updateOrFail($updateDto);
 

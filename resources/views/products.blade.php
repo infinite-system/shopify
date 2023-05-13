@@ -34,7 +34,9 @@
                 <td><a style="color:blue;"
                        href="{{route('products.edit', $product->id)}}">Edit</a></td>
                 <td>
-                  <img src="{{config('app.url')}}/{{ $product->image }}" style="max-width:50px;" />
+                  @if ($product->image)
+                    <img src="{{config('app.url')}}/{{ $product->image }}" style="max-width:50px;" />
+                  @endif
                 </td>
                 <td>
                   {{ $product->name }}

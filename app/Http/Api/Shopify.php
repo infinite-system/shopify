@@ -19,27 +19,35 @@ class Shopify
     }
 
     /**
-     * @throws UninitializedContextException
+     * @param $location
+     * @return \Shopify\Clients\HttpResponse
      * @throws ClientExceptionInterface
      * @throws MissingArgumentException
+     * @throws UninitializedContextException
      */
     public static function get($location): \Shopify\Clients\HttpResponse {
         return self::rest()->get('/admin/api/' . config('shopify.api.version') . '/'.$location);
     }
 
     /**
-     * @throws UninitializedContextException
-     * @throws MissingArgumentException
+     * @param $location
+     * @param $data
+     * @return \Shopify\Clients\HttpResponse
      * @throws ClientExceptionInterface
+     * @throws MissingArgumentException
+     * @throws UninitializedContextException
      */
     public static function post($location, $data): \Shopify\Clients\HttpResponse {
         return self::rest()->post('/admin/api/' . config('shopify.api.version') . '/'.$location, $data);
     }
 
     /**
-     * @throws UninitializedContextException
-     * @throws MissingArgumentException
+     * @param $location
+     * @param $data
+     * @return \Shopify\Clients\HttpResponse
      * @throws ClientExceptionInterface
+     * @throws MissingArgumentException
+     * @throws UninitializedContextException
      */
     public static function put($location, $data): \Shopify\Clients\HttpResponse {
         return self::rest()->put('/admin/api/' . config('shopify.api.version') . '/'.$location, $data);
