@@ -6,7 +6,7 @@
 ![project2](https://github.com/infinite-system/shopify/assets/150185/5dfba9eb-4caf-47ed-a677-cbb2131a7aa4)
 ![project3](https://github.com/infinite-system/shopify/assets/150185/8459a329-4852-4c44-858a-e7864b658517)
 
-# Setup the application
+# Setup the Application
 
 1. Git clone the repository:
 ```bash
