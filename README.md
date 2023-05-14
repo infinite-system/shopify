@@ -41,16 +41,15 @@ I personally use docker for this.
 Modify .env file to have proper database username and password
 ```
 
-Live example of the application can be found @:
+Live example of the application can be found here:
 https://34.71.79.49/shopify
 
 Register an account there and login.
 There you will be able to add and edit products, that will sync with Shopify store.
+You can test password reset there as well.
 
-The store is located at https://realized-one.myshopify.com/
-
+The Shopify store is located at https://realized-one.myshopify.com/
 The password to the test store is `1234`
-
 
 Products public unathorized API can be found at:
 https://34.71.79.49/shopify/api/products via GET request or simply going to the link.
@@ -60,7 +59,6 @@ https://34.71.79.49/shopify/api/products via POST request
 via POSTMAN or any other API checker by supplying the proper bearer token, if viewed through browser it will redirect to login page.
 
 It can also be access by login in into the application and submitting the requests there.
-
 
 Benchmarking can be found at:
 https://34.71.79.49/shopify/clockwork/app#
@@ -147,8 +145,6 @@ Anyway, this is a big topic, but just wanted to let you know that I enjoyed this
 
 I am also well versed in frontend, VueJS, React, Tailwind and all that goodness.
 Would love to join the team who share the same passion.
-
-
 
 
 
