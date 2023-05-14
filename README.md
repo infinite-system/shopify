@@ -68,6 +68,7 @@ PUT|PATCH       api/products/{product} ..... api.products.update › Api\Product
 DELETE          api/products/{product} ... api.products.destroy › Api\ProductApiController@destroy
 ```
 
+
 API Route definitions can be found here:
 https://github.com/infinite-system/shopify/blob/main/routes/api.php
 
@@ -116,6 +117,13 @@ To implement webhooks I needed to install a valid SSL certificate on my server, 
 
 The main controller that does updating and creating via webhooks can be found here:
 https://github.com/infinite-system/shopify/blob/main/app/Http/Controllers/ProductWebhooksController.php
+
+Webhook route endpoints are:
+```bash
+GET|POST|HEAD   api/shopify-webhooks/products/create .... ProductWebhooksController@create
+GET|POST|HEAD   api/shopify-webhooks/products/delete .... ProductWebhooksController@delete
+GET|POST|HEAD   api/shopify-webhooks/products/update .... ProductWebhooksController@update
+```
 
 I've tried to implement webhook verification for my app, but that turned out to be a very difficult task that seems to be unresolved by shopify. My app is a public app, and the way they have published it only works for the private apps.
 
