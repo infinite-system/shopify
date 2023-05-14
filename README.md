@@ -1,6 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Shopify 2023-04 - Integration with Laravel 10.10
+# Shopify Products API Integration with Laravel 10.10
 
 ![project](https://github.com/infinite-system/shopify/assets/150185/a2f74974-6ef6-4a62-8801-91782baeb9a1)
 ![project2](https://github.com/infinite-system/shopify/assets/150185/5dfba9eb-4caf-47ed-a677-cbb2131a7aa4)
