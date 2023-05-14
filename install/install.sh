@@ -19,6 +19,8 @@ rm -rf ./database/migrations/*
 
 mv ./database/migrations-backup/* ./database/migrations/
 
+rmdir ./database/migrations-backup
+
 echo 'Restore migrations after livewire install.'
 
 mv ./install/sanctum.php ./config/sanctum.php
