@@ -3,8 +3,8 @@
 # Shopify Intergation with Laravel
 
 ![project](https://github.com/infinite-system/shopify/assets/150185/a2f74974-6ef6-4a62-8801-91782baeb9a1)
-![project2](https://github.com/infinite-system/shopify/assets/150185/8c9bf09c-c95a-4c2f-ae5b-a83f3477c914)
-![project3](https://github.com/infinite-system/shopify/assets/150185/85bd0416-68ac-4774-978a-1ee42a0327b2)
+![project2](https://github.com/infinite-system/shopify/assets/150185/5dfba9eb-4caf-47ed-a677-cbb2131a7aa4)
+![project3](https://github.com/infinite-system/shopify/assets/150185/8459a329-4852-4c44-858a-e7864b658517)
 
 # Setup the application
 
