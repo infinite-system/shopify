@@ -13,7 +13,7 @@ git clone https://github.com/infinite-system/shopify.git
 Install laravel valet:
 https://laravel.com/docs/10.x/valet
 
-Run this command in root dir to setup http://shopify.test
+Run this command in root dir to setup https://shopify.test
 local environment.
 ```
 valet link shopify
@@ -34,13 +34,15 @@ Run the migrations:
 php artisan migrate
 ```
 
-Install mysql with 'shopify' database and modify env file to match credentials:
+Install MySQL/MariaDB with 'shopify' database and modify env file to match credentials:
+
+I personally use docker for this.
 ```
-Modify .env file to have proper mysql password
+Modify .env file to have proper database username and password
 ```
 
 Live example of the application can be found @:
-http://34.71.79.49/shopify
+https://34.71.79.49/shopify
 
 Register an account there and login.
 There you will be able to add and edit products, that will sync with Shopify store.
@@ -51,16 +53,17 @@ The password to the test store is `1234`
 
 
 Products public unathorized API can be found at:
-http://34.71.79.49/shopify/api/products via GET request or simply going to the link.
+https://34.71.79.49/shopify/api/products via GET request or simply going to the link.
 
 Products authorized add API can be found at:
-http://34.71.79.49/shopify/api/products via POST request
-via POSTMAN or any other API checker, if viewed through browser it will redirect to login page.
+https://34.71.79.49/shopify/api/products via POST request
+via POSTMAN or any other API checker by supplying the proper bearer token, if viewed through browser it will redirect to login page.
+
 It can also be access by login in into the application and submitting the requests there.
 
 
 Benchmarking can be found at:
-http://34.71.79.49/shopify/clockwork/app#
+https://34.71.79.49/shopify/clockwork/app#
 
 OpenAPI Specs can be found here:
 https://github.com/infinite-system/shopify/tree/main/specs/specs.yaml
@@ -96,6 +99,35 @@ https://github.com/infinite-system/shopify/blob/main/app/Http/Api/Shopify.php
 
 https://github.com/infinite-system/shopify/tree/main/resources/views/products
 
+## Webhooks Implementation & SSL
+
+To implement webhooks I needed to install a valid SSL certificate on my server, I used zero-ssl to get that done for free. Using nginx configuration I installed it really quickly.
+
+The main controller that does updating and creating via webhooks can be found here:
+https://github.com/infinite-system/shopify/blob/main/app/Http/Controllers/ProductWebhooksController.php
+
+I've tried to implement webhook verification for my app, but that turned out to be a very difficult task that seems to be unresolved by shopify. My app is a public app, and the way they have published it only works for the private apps.
+
+So, I've implemented a basic verification instead.
+
+To test webhooks, you can access the test store with these credentials:
+```
+email:sgtesting2@gmail.com
+password:Test1234
+```
+at https://realized-one.myshopify.com/admin
+
+I've also sent an invite to create an account to `alejandro.morales@splicedigital.com `, if this test account fails due to account verification.
+
+## API Performance Report
+
+Currently the API for create / update the products are almost the fastest they can be, because they use the Products API that can update Product Variant API and Image API in one request.
+Initially I made it via 3 separate requests, and that was much slower as each request took around 600 milliseconds.
+
+The optimization that can be done is when a product with an image is created, we can make uploading the image through a URL rather than through an attachment like it is being done right now, but it is uploaded via attachment right now, because it I made it to work with a local server, and local server does not have public urls from which Shopify can download images.
+
+You can test the performance of API if you login into the application and start adding / updating items and check the https://34.71.79.49/shopify/clockwork/app url.
+
 ### Other notes
 
 #### APIs
@@ -115,6 +147,9 @@ Anyway, this is a big topic, but just wanted to let you know that I enjoyed this
 
 I am also well versed in frontend, VueJS, React, Tailwind and all that goodness.
 Would love to join the team who share the same passion.
+
+
+
 
 
 Regards,

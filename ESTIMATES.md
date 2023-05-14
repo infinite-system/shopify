@@ -13,5 +13,5 @@
 | Implement CRUD sync with Shopify from Laravel side |   2hr    |    3hr    |
 | Implement CRUD sync from Shopify side via hooks    |   2hr    | 1hr 45min |
 | Implement benchmarking                             |  30min   |   10min   |
-| Create benchmarking report                         |  30min   |   10min   |
+| Create benchmarking report                         |  30min   |   30min   |
 
