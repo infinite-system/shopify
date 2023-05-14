@@ -28,5 +28,5 @@ Route::group(['as' => 'api.'], function() {
 
 // Private Authorized API endpoints for product CRUD
 Route::group(['as' => 'api.', 'middleware' => ['auth:sanctum']], function() {
-    Orion::resource('products', ProductApiController::class)->except(['index']);
+    Orion::resource('products', ProductApiController::class)->only(['index','show','store','update','destroy']);
 });

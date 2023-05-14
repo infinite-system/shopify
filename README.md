@@ -58,6 +58,16 @@ Products authorized add API can be found at:
 https://34.71.79.49/shopify/api/products via POST request
 via POSTMAN or any other API checker by supplying the proper bearer token, if viewed through browser it will redirect to login page.
 
+You can use this token Authorization: Bearer 2|ZhNjguG7J2E576Ew95F1tfnegzy8lJ20rO3Kct7O
+in POSTMAN to submit requests to the api that are under these routes.
+```bash
+GET|HEAD        api/products ................ api.products.index ›  Api\ProductApiController@index
+POST            api/products ................. api.products.store › Api\ProductApiController@store
+GET|HEAD        api/products/{product} ......... api.products.show › Api\ProductApiController@show
+PUT|PATCH       api/products/{product} ..... api.products.update › Api\ProductApiController@update
+DELETE          api/products/{product} ... api.products.destroy › Api\ProductApiController@destroy
+```
+
 It can also be access by login in into the application and submitting the requests there.
 
 Benchmarking can be found at:

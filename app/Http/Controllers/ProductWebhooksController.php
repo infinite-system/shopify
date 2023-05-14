@@ -200,7 +200,7 @@ class ProductWebhooksController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function delete(Request $request) {
+    public function delete(Request $request): JsonResponse {
 
         try {
 
