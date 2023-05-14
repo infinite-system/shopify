@@ -24,3 +24,7 @@ echo 'Restore migrations after livewire install.'
 mv ./install/sanctum.php ./config/sanctum.php
 
 echo 'Restore original config/sanctum.php after livewire install.'
+
+php artisan migrate
+
+echo 'Migrations installed.'
