@@ -1,4 +1,16 @@
 #!/bin/bash
+mkdir ./database/migrations-backup
+
+cp ./database/migrations/* ./database/migrations-backup/
+
+echo 'Backup migrations before installing livewire.'
+
+cp ./config/sanctum.php ./install/sanctum.php
+
+echo 'Backup sanctum.php config before installing livewire.'
+
+php artisan jetstream:install livewire
+
 cp ./install/navigation-menu.blade.php ./resources/views/
 
 echo 'Install navgation-menu.blade.php over base livewire to have products navigation.'
