@@ -122,9 +122,9 @@ I've also sent an invite to create an account to `alejandro.morales@splicedigita
 ## API Performance Report
 
 Currently the API for create / update the products are almost the fastest they can be, because they use the Products API that can update Product Variant API and Image API in one request.
-Initially I made it via 3 separate requests, and that was much slower as each request took around 600 milliseconds.
+Initially I made it via 3 separate requests, and that was much slower as each request took around 600 milliseconds making it around 2 seconds in speed and longer if image is being uploaded, now it just takes around 600ms
 
-The optimization that can be done is when a product with an image is created, we can make uploading the image through a URL rather than through an attachment like it is being done right now, but it is uploaded via attachment right now, because it I made it to work with a local server, and local server does not have public urls from which Shopify can download images.
+The optimization that can be done right now is when a product with an image is created, we can make uploading the image through a URL rather than through an attachment like it is being done right now, but it is uploaded via attachment right now, because it I made it to work with a local server, and local server does not have public urls from which Shopify can download images.
 
 You can test the performance of API if you login into the application and start adding / updating items and check the https://34.71.79.49/shopify/clockwork/app url.
 
