@@ -88,8 +88,8 @@ class ProductApiController extends Controller
                 'shopify' => [
                     'product_id' => $shopifyProduct['product']['id'],
                     'variant_id' => $shopifyProduct['product']['variants'][0]['id'],
-                    'image_id' => $shopifyProduct['product']['image']['id'],
-                    'image_src' => $shopifyProduct['product']['image']['src'],
+                    'image_id' => $shopifyProduct['product']['image']['id'] ?? '',
+                    'image_src' => $shopifyProduct['product']['image']['src'] ?? '',
                 ]
             ];
 

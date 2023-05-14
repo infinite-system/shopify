@@ -1,42 +1,45 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Products') }}
+      {{ __('Products') }}  » <a class="link" style="float:right;padding-right:25px;font-size:18px; display:inline-block;"
+                              href="{{route('products.add')}}">+ Add Product</a>
     </h2>
   </x-slot>
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="padding:10px;">
+      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="">
         <div style="text-align: right">
-        <a style="padding:8px 15px;display:inline-block;border:1px solid #ccc;border-radius:3px;background:#eee;"
-           href="{{route('products.add')}}">+ Add Product</a>
+
         </div>
         <style>
           .products { width: 100%; }
-          .products td { padding:10px; font-size: 16px; }
+          .products tr { cursor:pointer;  }
+          .products td { padding:10px 0 10px 20px; font-size: 16px;}
+          .products tr:hover {background: #f3f7f8; }
+          .products tr:hover td {}
           .products thead td { color:#666; font-size:12px; }
+          a.link { color:#0066ff;font-size:14px; }
+          a.link:hover { color: #054bb2;font-size:14px;text-decoration: underline }
+          a.del { color: #ff001e;font-size:12px; }
+          a.del:hover { color: #c2000f;font-size:12px; }
         </style>
-        <div class="container">
-          <table class="products">
+        <div class="container2">
+          <table class="products" cellspacing="1">
             <thead>
             <tr>
-              <td>Delete</td>
               <td>Edit</td>
               <td>Image</td>
               <td>Name</td>
               <td>Description</td>
               <td>Price</td>
               <td>Quantity</td>
+              <td>Delete</td>
             </tr>
             </thead>
             @foreach ($products as $product)
-              <tr>
-                <td><a style="color:blue;"
-                       onclick="deleteProduct({{$product->id}})"
-                  href="javascript:void(0);"
-                  >Delete</a></td>
-                <td><a style="color:blue;"
+              <tr onclick="window.location.href='{{route('products.edit', $product->id)}}'">
+                <td><a class="link"
                        href="{{route('products.edit', $product->id)}}">Edit</a></td>
                 <td>
                   @if ($product->image)
@@ -51,11 +54,15 @@
                 </td>
                 <td>${{ $product->price }}</td>
                 <td>{{ $product->quantity }}</td>
+                <td><a class="del"
+                       onclick="event.stopPropagation();deleteProduct({{$product->id}})"
+                       href="javascript:void(0);"
+                  >Delete</a></td>
               </tr>
             @endforeach
           </table>
 
-          <div style="padding-top:10px;">
+          <div style="padding:25px 10px 15px;">
             Delete Reponse: <span style="color:#555;font-size:14px;">Try deleting an item & then refresh the page.</span><br />
             <pre id="response"></pre>
           </div>
