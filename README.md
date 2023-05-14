@@ -15,7 +15,7 @@ git clone https://github.com/infinite-system/shopify.git
 
 2. Copy the .env file that I sent you into the root dir
 
-3. Install MySQL/MariaDB with 'shopify' database and modify env file to match credentials, I personally use Docker for this.
+3. Install MySQL/MariaDB with 'shopify' database and modify .env file to match credentials, I personally use Docker for this.
 
 4. Run composer install:
 ```bash
@@ -23,7 +23,7 @@ composer install
 ```
 5. Run the `install/install.sh` script that will install Laravel Jetstream & Run migrations correctly:
 ```bash
-sh install/prepare-install.sh
+sh install/install.sh
 ```
 
 6. Install Laravel Valet & run this command in app root dir to setup
