@@ -8,48 +8,29 @@
 
 # Setup the application
 
-Git clone the repository:
-
+1. Git clone the repository:
 ```bash
 git clone https://github.com/infinite-system/shopify.git
 ```
 
-Install laravel valet:
-https://laravel.com/docs/10.x/valet
+2. Copy the .env file that I sent you into the root dir
 
-Run this command in root dir to setup https://shopify.test
-local environment.
-```
-valet link shopify
-```
+3. Install MySQL/MariaDB with 'shopify' database and modify env file to match credentials, I personally use Docker for this.
 
-Run composer install:
+4. Run composer install:
 ```bash
 composer install
 ```
+5. Run the `install/install.sh` script that will install Laravel Jetstream & Run migrations correctly:
 ```bash
 sh install/prepare-install.sh
 ```
-Install laravel jetstream in livewire mode:
-```bash
-php artisan jetstream:install livewire
-```
 
-Run install.sh from the app root directory to overwrite some livewire default blades.
-```bash
-sh install/install.sh
-```
+6. Install Laravel Valet & run this command in app root dir to setup
+http://shopify.test local environment.
 
-Run the migrations:
-```bash
-php artisan migrate
 ```
-
-Install MySQL/MariaDB with 'shopify' database and modify env file to match credentials:
-
-I personally use docker for this.
-```
-Modify .env file to have proper database username and password
+valet link shopify
 ```
 
 Live example of the application can be found here:
