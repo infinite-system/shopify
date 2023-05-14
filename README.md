@@ -27,7 +27,9 @@ Run composer install:
 ```bash
 composer install
 ```
-
+```bash
+sh install/prepare-install.sh
+```
 Install laravel jetstream in livewire mode:
 ```bash
 php artisan jetstream:install livewire
