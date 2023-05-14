@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Webhooks API for shopify
 Route::match(['GET', 'POST'], 'shopify-webhooks/products/create', [ProductWebhooksController::class, 'create']);
 Route::match(['GET', 'POST'], 'shopify-webhooks/products/update', [ProductWebhooksController::class, 'update']);
+Route::match(['GET', 'POST'], 'shopify-webhooks/products/delete', [ProductWebhooksController::class, 'delete']);
 
 // Public API endpoint to list products
 Route::group(['as' => 'api.'], function() {

@@ -27,6 +27,45 @@
     ],
     "paths": {
         "/api/products": {
+            "get": {
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ProductResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#/components/schemas/ResourceLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/ResourceMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "summary": "Get a list of products",
+                "tags": [
+                    "Product Api"
+                ]
+            },
             "post": {
                 "parameters": [],
                 "requestBody": {
@@ -65,45 +104,6 @@
                     }
                 },
                 "summary": "Create product",
-                "tags": [
-                    "Product Api"
-                ]
-            },
-            "get": {
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/ProductResource"
-                                            }
-                                        },
-                                        "links": {
-                                            "$ref": "#/components/schemas/ResourceLinks"
-                                        },
-                                        "meta": {
-                                            "$ref": "#/components/schemas/ResourceMeta"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Unauthorized"
-                    }
-                },
-                "summary": "Get a list of products",
                 "tags": [
                     "Product Api"
                 ]
@@ -290,6 +290,50 @@
                 ]
             }
         },
+        "/api/products/{product}/restore": {
+            "post": {
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "name": "product",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ProductResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "summary": "Restore product",
+                "tags": [
+                    "Product Api"
+                ]
+            }
+        },
         "/api/products/batch": {
             "post": {
                 "parameters": [],
@@ -462,6 +506,65 @@
                     "Product Api"
                 ]
             }
+        },
+        "/api/products/batch/restore": {
+            "post": {
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "resources": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "description": "A list of resource IDs"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ProductResource"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "summary": "Restore a batch of products",
+                "tags": [
+                    "Product Api"
+                ]
+            }
         }
     },
     "components": {
@@ -577,6 +680,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Product Api",
+            "description": "API documentation for Product Api"
+        },
         {
             "name": "Product Api",
             "description": "API documentation for Product Api"

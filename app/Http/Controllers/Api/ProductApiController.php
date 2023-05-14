@@ -6,6 +6,7 @@ use App\Models\Product;
 use Orion\Http\Controllers\Controller;
 use Orion\Http\Requests\Request;
 use \App\Http\Api\Shopify;
+use Psr\Http\Client\ClientExceptionInterface;
 use Shopify\Exception\MissingArgumentException;
 
 class ProductApiController extends Controller
@@ -94,6 +95,11 @@ class ProductApiController extends Controller
 
             $create = Product::create($createDto);
 
+        } catch (ClientExceptionInterface $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -167,15 +173,57 @@ class ProductApiController extends Controller
 
             $update = $product->updateOrFail($updateDto);
 
+        } catch (ClientExceptionInterface $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
                 'message' => $e->getMessage()
             ];
         }
+
         return [
             'success' => !!$update,
             'data' => $product
         ];
     }
+
+
+    /**
+     * Delete existing product.
+     *
+     * @param Request $request
+     * @param $key
+     * @return array
+     */
+    public function destroy(Request $request, $key): array {
+
+        try {
+
+            $product = Product::whereId($key)->firstOrFail();
+
+            Shopify::delete("products/{$product->details['shopify']['product_id']}.json")->getDecodedBody();
+
+            $delete = $product->delete();
+
+        } catch (ClientExceptionInterface $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+
+        return [
+            'success' => !!$delete,
+        ];
+    }
+
 }

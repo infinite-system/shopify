@@ -21,6 +21,7 @@
           <table class="products">
             <thead>
             <tr>
+              <td>Delete</td>
               <td>Edit</td>
               <td>Image</td>
               <td>Name</td>
@@ -31,6 +32,10 @@
             </thead>
             @foreach ($products as $product)
               <tr>
+                <td><a style="color:blue;"
+                       onclick="deleteProduct({{$product->id}})"
+                  href="javascript:void(0);"
+                  >Delete</a></td>
                 <td><a style="color:blue;"
                        href="{{route('products.edit', $product->id)}}">Edit</a></td>
                 <td>
@@ -49,7 +54,46 @@
               </tr>
             @endforeach
           </table>
+
+          <div style="padding-top:10px;">
+            Delete Reponse: <span style="color:#555;font-size:14px;">Try deleting an item & then refresh the page.</span><br />
+            <pre id="response"></pre>
+          </div>
         </div>
+
+        <script>
+
+          const formData = new FormData();
+          formData.append("_method", 'DELETE');
+
+          function deleteProduct(id) {
+
+            const deleteIt = confirm('Are you sure?')
+
+            if (deleteIt) {
+
+              $.ajax({
+                type: "POST",
+                url: "{{config('app.url').'/api/products/'}}" + id,
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                  "accept": "application/json",
+                  "Authorization": "Bearer {{ Auth::user()->tokens[0]->plain_token ?? '' }}"
+                }
+              }).fail(function(xhr, data) {
+                console.log(xhr.responseText)
+                $('#response').html(JSON.stringify(xhr.responseJSON, null, 2))
+              })
+                .done(function(data) {
+                  console.log(data);
+                  $('#response').html(JSON.stringify(data, null, 2))
+                });
+
+            }
+          }
+        </script>
 
         {{ $products->links() }}
 

@@ -192,6 +192,46 @@ class ProductWebhooksController extends Controller
 
     }
 
+
+
+    /**
+     * Update product webhook.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function delete(Request $request) {
+
+        try {
+
+            if (!$this->simpleWebhookValidation()) {
+                return $this->unauthorized();
+            }
+
+            $product = Product::where('details->shopify->product_id', $request->id)->first();
+
+            if (!$product) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found.'
+                ], 400);
+            }
+
+            $product->delete();
+
+            return response()->json(['success' => true], 200);
+
+        } catch (\Exception $e) {
+
+            // Server error
+            return response()->json([
+                'success' => false,
+                'message' => 'Server error: ' . $e->getMessage()
+            ], 500);
+        }
+
+    }
+
     /**
      * Download image from Shopify.
      *
@@ -214,13 +254,13 @@ class ProductWebhooksController extends Controller
     }
 
     /**
-     * Return unathorized.
+     * Return unauthorized.
      *
      * @return JsonResponse
      */
     private function unauthorized(): JsonResponse {
         return response()->json([
-            'success' => true,
+            'success' => false,
             'message' => 'Unauthorized.'
         ], 401);
     }

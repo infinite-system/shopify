@@ -23,4 +23,8 @@ class Product extends Model
         'details' => 'array'
     ];
 
+    protected $hidden = [
+        'details'
+    ];
+
 }
