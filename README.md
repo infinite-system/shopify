@@ -68,6 +68,9 @@ PUT|PATCH       api/products/{product} ..... api.products.update › Api\Product
 DELETE          api/products/{product} ... api.products.destroy › Api\ProductApiController@destroy
 ```
 
+API Route definitions can be found here:
+https://github.com/infinite-system/shopify/blob/main/routes/api.php
+
 It can also be access by login in into the application and submitting the requests there.
 
 Benchmarking can be found at:
