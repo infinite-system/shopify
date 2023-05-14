@@ -145,6 +145,9 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+                {{ __('Products') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

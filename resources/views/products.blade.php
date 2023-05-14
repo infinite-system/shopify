@@ -34,7 +34,7 @@
               <td>Description</td>
               <td>Price</td>
               <td>Quantity</td>
-              <td>Delete</td>
+              <td style="padding-right:15px;">Delete</td>
             </tr>
             </thead>
             @foreach ($products as $product)
@@ -54,7 +54,7 @@
                 </td>
                 <td>${{ $product->price }}</td>
                 <td>{{ $product->quantity }}</td>
-                <td><a class="del"
+                <td style="padding-right:15px;"><a class="del"
                        onclick="event.stopPropagation();deleteProduct({{$product->id}})"
                        href="javascript:void(0);"
                   >Delete</a></td>
