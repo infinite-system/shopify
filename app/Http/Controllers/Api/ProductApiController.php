@@ -101,7 +101,7 @@ class ProductApiController extends Controller
             return new JsonResponse([
                 'success' => false,
                 'message' => 'Server error: '.$e->getMessage()
-            ], 500;
+            ], 500);
         } catch (\Exception $e) {
             return new JsonResponse([[
                 'success' => false,
