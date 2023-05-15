@@ -128,7 +128,7 @@ password:Test1234
 ```
 at https://realized-one.myshopify.com/admin
 
-I've also sent an invite to create an account to `alejandro.morales@splicedigital.com `, if this test account fails due to account verification.
+I've also sent an invite to create an account to Alejandro Morales @ Splice Digital, if this test account fails due to account verification.
 
 ## API Performance Report
 
