@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Orion\Http\Controllers\Controller;
 use Orion\Http\Requests\Request;
 use \App\Http\Api\Shopify;
 use Psr\Http\Client\ClientExceptionInterface;
 use Shopify\Exception\MissingArgumentException;
+
 
 class ProductApiController extends Controller
 {
@@ -41,11 +43,11 @@ class ProductApiController extends Controller
      *
      * @param Request $request
      * @param $method
-     * @return array
+     * @return JsonResponse
      * @throws MissingArgumentException
      * @throws \JsonException
      */
-    public function store(Request $request): array {
+    public function store(Request $request): JsonResponse {
 
         try {
 
@@ -96,21 +98,21 @@ class ProductApiController extends Controller
             $create = Product::create($createDto);
 
         } catch (ClientExceptionInterface $e) {
-            return [
+            return new JsonResponse([
                 'success' => false,
-                'message' => $e->getMessage()
-            ];
+                'message' => 'Server error: '.$e->getMessage()
+            ], 500;
         } catch (\Exception $e) {
-            return [
+            return new JsonResponse([[
                 'success' => false,
-                'message' => $e->getMessage()
-            ];
+                'message' => 'Server error: '.$e->getMessage()
+            ], 500);
         }
 
-        return [
+        return new JsonResponse([
             'success' => !!$create,
             'data' => $create
-        ];
+        ], 200);
     }
 
     /**
@@ -118,9 +120,9 @@ class ProductApiController extends Controller
      *
      * @param Request $request
      * @param $product
-     * @return array
+     * @return JsonResponse
      */
-    public function update(Request $request, $key): array {
+    public function update(Request $request, $key): JsonResponse {
 
         try {
 
@@ -174,21 +176,21 @@ class ProductApiController extends Controller
             $update = $product->updateOrFail($updateDto);
 
         } catch (ClientExceptionInterface $e) {
-            return [
+            return new JsonResponse([
                 'success' => false,
-                'message' => $e->getMessage()
-            ];
+                'message' => 'Server error: '.$e->getMessage()
+            ], 500);
         } catch (\Exception $e) {
-            return [
+            return new JsonResponse([
                 'success' => false,
-                'message' => $e->getMessage()
-            ];
+                'message' => 'Server error: '.$e->getMessage()
+            ], 500);
         }
 
-        return [
+        return new JsonResponse([
             'success' => !!$update,
             'data' => $product
-        ];
+        ], 200);
     }
 
 
@@ -197,9 +199,9 @@ class ProductApiController extends Controller
      *
      * @param Request $request
      * @param $key
-     * @return array
+     * @return JsonResponse
      */
-    public function destroy(Request $request, $key): array {
+    public function destroy(Request $request, $key): JsonResponse {
 
         try {
 
@@ -210,20 +212,20 @@ class ProductApiController extends Controller
             $delete = $product->delete();
 
         } catch (ClientExceptionInterface $e) {
-            return [
+            return new JsonResponse([
                 'success' => false,
                 'message' => $e->getMessage()
-            ];
+            ], 500);
         } catch (\Exception $e) {
-            return [
+            return new JsonResponse([
                 'success' => false,
                 'message' => $e->getMessage()
-            ];
+            ], 500);
         }
 
-        return [
+        return new JsonResponse([
             'success' => !!$delete,
-        ];
+        ], 200);
     }
 
 }

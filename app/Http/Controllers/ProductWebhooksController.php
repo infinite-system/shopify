@@ -76,7 +76,7 @@ class ProductWebhooksController extends Controller
                 // product already exist and was created from this app
                 // notify shopify of success, do nothing so we do not
                 // create duplicate products in the database
-                return response()->json(['success' => true], 200);
+                return new JsonResponse(['success' => true], 200);
             }
 
             $createDto = [
@@ -105,11 +105,11 @@ class ProductWebhooksController extends Controller
 
             Product::create($createDto);
 
-            return response()->json(['success' => true], 200);
+            return new JsonResponse(['success' => true], 200);
 
         } catch (\Exception $e) {
 
-            return response()->json([
+            return new JsonResponse([
                 'success' => false,
                 'message' => $e->getMessage()
             ], 500);
@@ -124,7 +124,7 @@ class ProductWebhooksController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function update(Request $request) {
+    public function update(Request $request): JsonResponse {
 
         try {
 
@@ -135,7 +135,7 @@ class ProductWebhooksController extends Controller
             $product = Product::where('details->shopify->product_id', $request->id)->first();
 
             if (!$product) {
-                return response()->json([
+                return new JsonResponse([
                     'success' => false,
                     'message' => 'Product not found.'
                 ], 400);
@@ -178,13 +178,13 @@ class ProductWebhooksController extends Controller
 
             $product->update($updateDto);
 
-            return response()->json(['success' => true], 200);
+            return new JsonResponse(['success' => true], 200);
 
 
         } catch (\Exception $e) {
 
             // Server error
-            return response()->json([
+            return new JsonResponse([
                 'success' => false,
                 'message' => 'Server error: ' . $e->getMessage()
             ], 500);
@@ -211,7 +211,7 @@ class ProductWebhooksController extends Controller
             $product = Product::where('details->shopify->product_id', $request->id)->first();
 
             if (!$product) {
-                return response()->json([
+                return new JsonResponse([
                     'success' => false,
                     'message' => 'Product not found.'
                 ], 200);
@@ -219,12 +219,12 @@ class ProductWebhooksController extends Controller
 
             $product->delete();
 
-            return response()->json(['success' => true], 200);
+            return new JsonResponse(['success' => true], 200);
 
         } catch (\Exception $e) {
 
             // Server error
-            return response()->json([
+            return new JsonResponse([
                 'success' => false,
                 'message' => 'Server error: ' . $e->getMessage()
             ], 500);
@@ -259,7 +259,7 @@ class ProductWebhooksController extends Controller
      * @return JsonResponse
      */
     private function unauthorized(): JsonResponse {
-        return response()->json([
+        return new JsonResponse([
             'success' => false,
             'message' => 'Unauthorized.'
         ], 401);
