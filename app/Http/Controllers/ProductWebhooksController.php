@@ -214,7 +214,7 @@ class ProductWebhooksController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Product not found.'
-                ], 400);
+                ], 200);
             }
 
             $product->delete();
